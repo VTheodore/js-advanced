@@ -149,5 +149,55 @@ function cookingByNumbers(args) {
     })
 }
 
-cookingByNumbers(['32', 'chop', 'chop', 'chop', 'chop', 'chop']);
-cookingByNumbers(['9', 'dice', 'spice', 'chop', 'bake', 'fillet']);
+// cookingByNumbers(['32', 'chop', 'chop', 'chop', 'chop', 'chop']);
+// cookingByNumbers(['9', 'dice', 'spice', 'chop', 'bake', 'fillet']);
+
+/**
+ * 
+ * @param {Array} args 
+ */
+function validityChecker(args) {
+    const pointA = {x: +args[0], y: +args[1]};
+    const pointB = {x: +args[2], y: +args[3]};
+    const pointZero = {x: 0, y: 0};
+
+    let pointAMsg = `{${pointA.x}, ${pointA.y}} to {${pointZero.x}, ${pointZero.y}} is `;
+    pointAMsg += isValidDistance(pointA, pointZero) ? 'valid' : 'invalid';
+    console.log(pointAMsg);
+
+    let pointBMsg = `{${pointB.x}, ${pointB.y}} to {${pointZero.x}, ${pointZero.y}} is `;
+    pointBMsg += isValidDistance(pointB, pointZero) ? 'valid' : 'invalid';
+    console.log(pointBMsg);
+
+    let bothPointsMsg = `{${pointA.x}, ${pointA.y}} to {${pointB.x}, ${pointB.y}} is `;
+    bothPointsMsg += isValidDistance(pointA, pointB) ? 'valid' : 'invalid';
+    console.log(bothPointsMsg);
+
+    function isValidDistance(p1, p2) {
+        const aSideTriangle = Math.abs(p1.x - p2.x);
+        const bSideTriangle = Math.abs(p1.y - p2.y);
+
+        const cSideTriangle = Math.sqrt(aSideTriangle ** 2 + bSideTriangle ** 2);
+        return cSideTriangle === Math.round(cSideTriangle);
+    }
+}
+
+
+// validityChecker([3, 0, 0, 4]);
+// validityChecker([2, 1, 1, 1]);
+
+/**
+ * 
+ * @param {Array} args 
+ */
+function calorieObject(args) {
+    let calorieObj = {};
+
+    for (let i = 0; i < args.length; i += 2) {
+        calorieObj[args[i]] = +args[i + 1];
+    }
+    
+    console.log(calorieObj);
+}
+
+// calorieObject(['Yoghurt', '48', 'Rice', '128', 'Apple', '52']);
