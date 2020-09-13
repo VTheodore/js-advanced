@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>From JSON to HTML</title>
+    <style>
+        table,th{
+            border: groove;
+            border-collapse: collapse;
+        }
+
+        td{
+            border: 1px solid black;
+        }
+
+        td,th{
+            padding: 5px;
+        } 
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div id = "wrapper1"></div>
+    <div id = "wrapper2"></div>
+
+    <script>
+        window.onload = function () {
+            let container1 = document.getElementById('wrapper1');
+            container1.innerHTML = fromJSONToHTML(['[{"Name":"Tomatoes & Chips","Price":2.35},{"Name":"J&B Chocolate","Price":0.96}]']);
+            
+            let container2 = document.getElementById('wrapper2');
+            container2.innerHTML = fromJSONToHTML(['[{"Name":"Pesho <div>-a","Age":20,"City":"Sofia"},{"Name":"Gosho","Age":18,"City":"Plovdiv"},{"Name":"Angel","Age":18, "City":"Veliko Tarnovo"}]']);
+        };
+
+        function fromJSONToHTML(input) {
+            const objects = JSON.parse(input);
+            let resHTML = '<table>\n  <tr>\n';
+    
+            for (let property in objects[0]) {
+                resHTML += '    <th>';
+                resHTML += property.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                resHTML += '</th>\n';
+            }
+
+            resHTML += '  </tr>\n';
+    
+            objects.forEach(obj => {
+                resHTML += '  <tr>\n';
+                for (let property in obj) {
+                    resHTML += '    <td>';
+                    resHTML += obj[property].toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                    resHTML += '</td>\n';
+                }
+                resHTML += '  </tr>\n';
+            });
+
+            resHTML += '</table>';
+            return resHTML;
+        }       
+    </script>
+</body>
+</html>
