@@ -135,3 +135,69 @@ function fromJSONToHTML(input) {
 // console.log(res1);
 // console.log(res2);
 
+class Person {
+    constructor (firstName, lastName, age, email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
+    }
+
+    toString() {
+        return `${this.firstName} ${this.lastName} (age: ${this.age}, email: ${this.email})`;
+    }
+}
+
+// let person = new Person('Anna', 'Simpson', 22, 'anna@yahoo.com');
+// console.log(person.toString());
+
+function getPeople() {
+    return [new Person('Anna', 'Simpson', 22, 'anna@yahoo.com'), new Person('Softuni'), new Person('Stephan', 'Johnson', 25), new Person('Gabriel', 'Peterson', 24, 'g.p@gmail.com')];
+}
+
+// console.log(getPeople());
+
+class Circle {
+    constructor (radius) {
+        this.radius = radius;
+    }
+
+    get diameter() {
+        return this.radius * 2;
+    }
+
+    set diameter(value) {
+        this.radius = value / 2;
+    }
+
+    get area() {
+        return Math.PI * this.radius ** 2;
+    }
+}
+
+// let c = new Circle(2);
+// console.log(`Radius: ${c.radius}`);
+// console.log(`Diameter: ${c.diameter}`);
+// console.log(`Area: ${c.area}`);
+// c.diameter = 1.6;
+// console.log(`Radius: ${c.radius}`);
+// console.log(`Diameter: ${c.diameter}`);
+// console.log(`Area: ${c.area}`);
+
+
+class Point {
+    constructor(x, y) {
+        this.x = x;
+        this.y =  y;
+    }
+
+    static distance(p1, p2) {
+        const a = Math.abs(p1.x - p2.x);
+        const b = Math.abs(p1.y - p2.y);
+        return Math.sqrt(a ** 2 + b ** 2);
+    }
+}
+
+// const p1 = new Point(5, 5);
+// const p2 = new Point(9, 8);
+// console.log(Point.distance(p1, p2));
