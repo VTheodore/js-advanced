@@ -135,6 +135,69 @@ function fromJSONToHTML(input) {
 // console.log(res1);
 // console.log(res2);
 
+function printLowestPricesInCities(input) {
+    const products = [];
+
+    for (let line of input) {
+        let [townName, productName, productPrice] = line.split('|').filter(w => w !== '').map(w => w.trim());
+        productPrice = Number(productPrice);
+
+        let product;
+        const index = indexOfProduct(productName);
+
+        if(index === -1) {
+            product = {name: productName};
+            product.townsAndPrices = [];
+            products.push(product);
+        } else { 
+            product = products[index];
+        }
+
+        const townAndPrice = {town: townName, price: productPrice};
+        product.townsAndPrices.push(townAndPrice);
+    }
+
+    products.forEach(product => {
+        const townAndPrice = getTownWithLowestPrice(product);
+        console.log(`${product.name} -> ${townAndPrice.price} (${townAndPrice.town})`);
+    });
+
+    function indexOfProduct(productName) {
+        for (let i = 0; i < products.length; i++) {
+            const product = products[i];
+            if (product.name === productName) return i;
+        }
+
+        return -1;
+    }
+
+    function getTownWithLowestPrice(product) {
+        const townsAndPrices = product.townsAndPrices;
+        let lowestPrice = townsAndPrices[0].price;
+        let index = 0;
+
+        for (let i = 1; i < townsAndPrices.length; i++) {
+            if (lowestPrice > townsAndPrices[i].price) {
+                lowestPrice = townsAndPrices[i].price;
+                index = i;
+            }
+        }
+
+        return townsAndPrices[index];
+    }
+}
+
+// printLowestPricesInCities(['Sample Town | Sample Product | 1000',
+// 'Sample Town | Orange | 2',
+// 'Sample Town | Peach | 1',
+// 'Sofia | Orange | 3',
+// 'Sofia | Peach | 2',
+// 'New York | Sample Product | 1000.1',
+// 'New York | Burger | 10']
+// );
+
+// printLowestPricesInCities(['Sofia City | BMW | 100000', 'Mexico City | BMW | 99999']);
+
 class Person {
     constructor (firstName, lastName, age, email) {
         this.firstName = firstName;
