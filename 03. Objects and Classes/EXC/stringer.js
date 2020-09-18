@@ -18,7 +18,8 @@ class Stringer {
 
     toString() {
         let res = '';
-        if (this.innerLength === this.innerString.length) {
+
+        if (this.innerLength >= this.innerString.length) {
             res = this.innerString;
         } else {
             for (let i = 0; i < this.innerLength; i++) {
